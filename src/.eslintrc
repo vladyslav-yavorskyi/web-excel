@@ -5,6 +5,8 @@
     "browser": true,
     "node": true
   },
-  "rules": {},
+  "rules": {
+    "linebreak-style": "off"
+  },
   "extends": ["eslint:recommended", "google"]
 }
