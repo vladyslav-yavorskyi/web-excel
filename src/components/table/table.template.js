@@ -3,18 +3,27 @@ const CODES = {
   Z: 90,
 };
 
-function toCell() {
-  return `<div class="cell" contenteditable></div>`;
+function toCell(_, coll) {
+  return `<div class="cell" contenteditable data-col="${coll}"></div>`;
 }
 
-function toColumn(col) {
-  return `<div class="column">${col}</div>`;
+function toColumn(col, index) {
+  return `<div class="column" data-type="resizable" data-col="${index}">
+            ${col}
+            <div class="col-resize" data-resize="col"></div>
+          </div>`;
 }
 
 function createRow(number, content) {
+  const resizer = number
+    ? `<div class="row-resize" data-resize="row" ></div>`
+    : '';
   return `
-    <div class="row">
-      <div class="row-info">${number ? number : ''}</div>
+    <div class="row" data-type="resizable">
+      <div class="row-info" >
+        ${number ? number : ''}
+        ${resizer}
+      </div>
       <div class="row-data">${content}</div>
     </div>
   `;
@@ -39,28 +48,3 @@ export function createTable(rowCount = 15) {
 
   return rows.join('');
 }
-
-// let temp = `
-// <div class="row"></div>
-// <div class="row-info"></div>
-// <div class="row-data">
-
-//   <div class="column">B</div>
-//   <div class="column">C</div>
-//   <div class="column">A</div>
-//   <div class="column">B</div>
-//   <div class="column">C</div>
-//   <div class="column">A</div>
-//   <div class="column">B</div>
-//   <div class="column">C</div>
-//   <div class="column">A</div>
-// </div>
-// </div>
-// <div class="row">
-// <div class="row-info">1</div>
-// <div class="row-data">
-//   <div class="cell selected" contenteditable="">A1</div>
-
-//   <div class="cell" contenteditable="">C3</div>
-// </div>
-// `;
