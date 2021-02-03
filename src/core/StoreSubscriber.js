@@ -22,10 +22,13 @@ export class StoreSubscriber {
       });
 
       this.prevState = this.store.getState();
+      if (process.env.NODE_ENV === 'development') {
+        window['redux'] = this.prevState;
+      }
     });
   }
 
   unsubscribeFromStore() {
-    this.sub.unsubsribe();
+    this.sub.unsubscribe();
   }
 }
